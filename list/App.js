@@ -1,48 +1,24 @@
-import React, { Component } from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, AppRegistry, TextInput } from 'react-native';
 
 
-const rows = [
-  {id: 0, text: '№'},
-  {id: 1, text: 'отметка о выполнении (покупке)'},
-  {id: 2, text: 'имя товара'},
-  {id: 3, text: 'количество'},
-  {id: 4, text: 'цена'},
-  {id: 5, text: 'единицы измерения'},
-]
 
-const extractKey = ({id}) => id
-
-export default class App extends Component {
-
-  renderItem = ({item}) => {
-    return (
-      <Text style={styles.row}>
-        {item.text}
-      </Text>
-    )
-  }
-
+ export default class App extends React.Component {
   render() {
     return (
-      <FlatList
-        style={styles.container}
-        data={rows}
-        renderItem={this.renderItem}
-        keyExtractor={extractKey}
-      />
+      <View style={styles.a}>
+        <Text>  № | ☑ | Товара | €,₽,$ | количество | шт,упк,г,мл |</Text>
+        </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
+ const styles = StyleSheet.create({
+    a: {
+    flex: 0,
+    backgroundColor: 'ffd700',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: 75,
   },
-  row: {
-    padding: 15,
-    marginBottom: 5,
-    backgroundColor: 'skyblue',
-  },
-})
+});
