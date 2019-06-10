@@ -22,8 +22,6 @@ import { StyleSheet, Text, View, AppRegistry, TextInput, Button } from 'react-na
     super(props);
     this.state = { text: 'введите текст' };
 }
-
-
   render() {
     return (
       <View>
