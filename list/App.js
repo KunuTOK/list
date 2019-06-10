@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AppRegistry, TextInput } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry, TextInput, Button } from 'react-native';
 
  export default class App extends React.Component {
   render() {
@@ -7,6 +7,11 @@ import { StyleSheet, Text, View, AppRegistry, TextInput } from 'react-native';
       <View style={styles.a}>
       <Text>  № | ☑ | Товара | €,₽,$ | количество | шт,упк,г,мл |</Text>
       <UselessTextInput />
+      <Button
+          onPress={true}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"/>
       </View>
     );
   }
@@ -16,7 +21,8 @@ import { StyleSheet, Text, View, AppRegistry, TextInput } from 'react-native';
   constructor(props) {
     super(props);
     this.state = { text: 'введите текст' };
-  }
+}
+
 
   render() {
     return (
