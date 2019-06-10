@@ -1,0 +1,8 @@
+.*
+.git
+*.log
+package.json
+yarn.lock
+
+assets
+list.jpg
