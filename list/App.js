@@ -42,11 +42,6 @@ import { StyleSheet, Text, View, AppRegistry, TextInput, Button } from 'react-na
   }
 }
 
-// skip this line if using Create React Native App
-AppRegistry.registerComponent('AwesomeProject', () => UselessTextInput);
-
-
-
   const styles = StyleSheet.create({
     a: {
     flex: 0,
