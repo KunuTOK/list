@@ -22,17 +22,19 @@ export default class ExampleFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['№', '☑', 'Товар', 'цена', 'количество', 'шт,упк,г,мл'],
+      tableHead: ['№', '☑', 'Товар', 'цена'],
       tableData: [
-        ['1', '☑', 'молоко', '36,9 ₽', '2', 'упк' ],
-        ['2', '☑', 'авокадо', '60 ₽', '3', 'шт' ],
-        ['3', '☑', 'Картофель', '15 ₽ ', '5', 'кг' ],
-      ]
+        ['1', '☑', 'молоко', '73.8 ₽' ],
+        ['2', '☑', 'авокадо', '180 ₽' ],
+        ['3', '☑', 'Картофель', '75 ₽' ],
+      ];
+      const products = [
+    {id: 1, name: "молоко"},
+    {id: 2, name: "авокадо"},
+    {id: 3, name: "Картофель"}
+];
+const tableData = products.map(({id, name}) => [id, '☑️', name, '73.8 ₽' ]),
     }
-  }
-
-  _alertIndex(index) {
-    Alert.alert(`отмеченный товар проведен через кассу `);
   }
 
   render() {
@@ -48,18 +50,10 @@ export default class ExampleFour extends Component {
     return (
      <View style={styles.container}>
         <Table borderStyle={{borderColor: 'transparent'}}>
-          <Row data={state.tableHead} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} style={styles.head} textStyle={styles.text}/>
-          {
-            state.tableData.map((rowData, index) => (
-              <TableWrapper style={styles.row} >
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell data={cellIndex === 7 ? element(cellData, index) : cellData} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} textStyle={styles.text}/>
-                  ))
-                }
+          <Row data={state.tableHead} flexArr={[0.35, 0.35, 1.25, 0.75]} style={styles.head} textStyle={styles.text}/>
+              <TableWrapper style={styles.row}>
+          <Rows data={state.tableData} flexArr={[0.35, 0.35, 1.25, 0.75]} style={styles.Row} textStyle={styles.text}/>
               </TableWrapper>
-            ))
-          }
         </Table>
        <UselessTextInput/>
          <View style={styles.total}>
@@ -81,13 +75,7 @@ function UselessTextInput() {
   return (
     <View>
       <TextInput
-        style={{
-          height: 30,
-          borderColor: "gray",
-          borderWidth: 1,
-          alignItems: "stretch",
-          justifyContent: "space betwen"
-        }}
+        style={styles.text}
         onChangeText={text => setText(text)}
         value={text}
       />
@@ -96,8 +84,8 @@ function UselessTextInput() {
 }
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 0, paddingTop: 20, backgroundColor: '#fff' },
-  head: { height: 30, backgroundColor: '#808B97' },
-  text: { margin: 6 },
+  head: { height: 40, backgroundColor: '#808B97' },
+  text: {fontSize: 20, margin: 6 },
   row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
   btn: { flex: 0, height: 40, backgroundColor: '#78B7BB',  borderRadius: 5},
   btnText: { fontSize: 25, textAlign: 'center', color: '#fff' },
