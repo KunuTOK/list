@@ -22,7 +22,7 @@ export default class ExampleFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['№', '☑', 'Товар', 'цена', 'кол-во', 'шт,упк,г,мл'],
+      tableHead: ['№', '☑', 'Товар', 'цена', 'количество', 'шт,упк,г,мл'],
       tableData: [
         ['1', '☑', 'молоко', '36,9 ₽', '2', 'упк' ],
         ['2', '☑', 'авокадо', '60 ₽', '3', 'шт' ],
@@ -49,9 +49,17 @@ export default class ExampleFour extends Component {
      <View style={styles.container}>
         <Table borderStyle={{borderColor: 'transparent'}}>
           <Row data={state.tableHead} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} style={styles.head} textStyle={styles.text}/>
-        <TableWrapper style={styles.row}>
-          <Rows data={state.tableData} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} style={styles.row} textStyle={styles.text}/>
-        </TableWrapper>
+          {
+            state.tableData.map((rowData, index) => (
+              <TableWrapper style={styles.row} >
+                {
+                  rowData.map((cellData, cellIndex) => (
+                    <Cell data={cellIndex === 7 ? element(cellData, index) : cellData} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} textStyle={styles.text}/>
+                  ))
+                }
+              </TableWrapper>
+            ))
+          }
         </Table>
        <UselessTextInput/>
          <View style={styles.total}>
