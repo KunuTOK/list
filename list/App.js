@@ -14,9 +14,9 @@ import {
   TableWrapper,
   Row,
   Rows,
+  Col,
   Cell
 } from 'react-native-table-component';
-import CheckBox from 'react-native-check-box'
 
 export default class ExampleFour extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class ExampleFour extends Component {
         ['1', '☑', 'молоко', '36,9 ₽', '2', 'упк' ],
         ['2', '☑', 'авокадо', '60 ₽', '3', 'шт' ],
         ['3', '☑', 'Картофель', '15 ₽ ', '5', 'кг' ],
-      ],
+      ]
     }
   }
 
@@ -36,14 +36,6 @@ export default class ExampleFour extends Component {
   }
 
   render() {
-    const products = [
-    {id: 1, name: "молоко"},
-    {id: 2, name: "авокадо"},
-    {id: 3, name: "Картофель"}
-];
- const tableData = products.map(({ id, name }) => {
-                return [id, checkbox, name, "36,9 ₽", "2", "упк"]
-            });
     const state = this.state;
     const element = (data, index) => (
       <TouchableOpacity onPress={() => this._alertIndex(index)}>
@@ -57,9 +49,17 @@ export default class ExampleFour extends Component {
      <View style={styles.container}>
         <Table borderStyle={{borderColor: 'transparent'}}>
           <Row data={state.tableHead} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} style={styles.head} textStyle={styles.text}/>
+          {
+            state.tableData.map((rowData, index) => (
               <TableWrapper style={styles.row} >
-          <Rows data={state.tableData} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} style={styles.row} textStyle={styles.text}/>
+                {
+                  rowData.map((cellData, cellIndex) => (
+                    <Cell data={cellIndex === 7 ? element(cellData, index) : cellData} flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]} textStyle={styles.text}/>
+                  ))
+                }
               </TableWrapper>
+            ))
+          }
         </Table>
        <UselessTextInput/>
          <View style={styles.total}>
