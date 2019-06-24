@@ -16,6 +16,7 @@ import {
   Rows,
   Cell
 } from 'react-native-table-component';
+import CheckBox from 'react-native-check-box'
 
 export default class ExampleFour extends Component {
   constructor(props) {
@@ -26,15 +27,31 @@ export default class ExampleFour extends Component {
         ['1', '☑', 'молоко', '36,9 ₽', '2', 'упк' ],
         ['2', '☑', 'авокадо', '60 ₽', '3', 'шт' ],
         ['3', '☑', 'Картофель', '15 ₽ ', '5', 'кг' ],
-      ]
+      ],
     }
   }
+
+  _alertIndex(index) {
+    Alert.alert(`отмеченный товар проведен через кассу `);
+  }
+
   render() {
-      const state = this.state;
+    const products = [
+    {id: 1, name: "молоко"},
+    {id: 2, name: "авокадо"},
+    {id: 3, name: "Картофель"}
+];
+ const tableData = products.map(({ id, name }) => {
+                return [id, checkbox, name, "36,9 ₽", "2", "упк"]
+            });
+    const state = this.state;
+    const element = (data, index) => (
+      <TouchableOpacity onPress={() => this._alertIndex(index)}>
         <View style={styles.btn}>
           <Text style={styles.btnText}>касса</Text>
         </View>
-
+      </TouchableOpacity>
+    );
 
     return (
      <View style={styles.container}>
@@ -48,9 +65,11 @@ export default class ExampleFour extends Component {
          <View style={styles.total}>
           <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
          </View>
+      <TouchableOpacity onPress={() => this._alertIndex(index)}>
         <View style={styles.btn}>
           <Text style={styles.btnText}>касса</Text>
         </View>
+      </TouchableOpacity>
       </View>
     )
   }
@@ -62,7 +81,13 @@ function UselessTextInput() {
   return (
     <View>
       <TextInput
-        style={styles.find}
+        style={{
+          height: 30,
+          borderColor: "gray",
+          borderWidth: 1,
+          alignItems: "stretch",
+          justifyContent: "space betwen"
+        }}
         onChangeText={text => setText(text)}
         value={text}
       />
@@ -78,5 +103,4 @@ const styles = StyleSheet.create({
   btnText: { fontSize: 25, textAlign: 'center', color: '#fff' },
   total: {flex: 0, height: 40, justifyContent: 'center', alignItems: 'flex-end', backgroundColor: 'blue'},
   totaltxt: { fontSize: 20, textAlign: 'center', color: '#fff' },
-  find: { height: 30, borderColor: "gray", borderWidth: 1, alignItems: "stretch", justifyContent: "space betwen"},
 });
