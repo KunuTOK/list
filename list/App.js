@@ -7,7 +7,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Hello, world!</Text>
-        <CheckBox title="Click Here" checked={this.state.checked} />
+        <CheckBox title="Click Here" checked={true} />
       </View>
     );
   }
