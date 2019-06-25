@@ -2,22 +2,20 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hello, world!</Text>
-        <CheckBox
-          checkedIcon={<Image source={require("../list/image/checked.png")} />}
-          uncheckedIcon={
-            <Image source={require("../list/image/unchecked.png")} />
-          }
-          checked={true}
-          onPress={() => this.setState({ checked: !true })}
-        />
-      </View>
-    );
-  }
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Hello, world!</Text>
+      <CheckBox
+        checkedIcon={<Image source={require("../list/image/checked.png")} />}
+        uncheckedIcon={
+          <Image source={require("../list/image/unchecked.png")} />
+        }
+        checked={true}
+        onPress={() => this.setState({ checked: !true })}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
