@@ -3,10 +3,15 @@ import { StyleSheet, Text, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 
 export default function App() {
+  const [checked, setChecked] = React.useState(false);
   return (
     <View style={styles.container}>
       <Text>Hello, world!</Text>
-      <CheckBox title="Click Here" checked={true} />
+      <CheckBox
+        title="Click Here"
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+      />
     </View>
   );
 }
