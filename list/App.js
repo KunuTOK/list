@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 
 export default function App() {
+  const [checked, setChecked] = React.useState(false);
   return (
     <View style={styles.container}>
       <Text>Hello, world!</Text>
@@ -11,8 +12,8 @@ export default function App() {
         uncheckedIcon={
           <Image source={require("../list/image/unchecked.png")} />
         }
-        checked={true}
-        onPress={() => this.setState({ checked: !true })}
+        checked={checked}
+        onPress={() => setChecked(!checked)}
       />
     </View>
   );
