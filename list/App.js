@@ -2,15 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hello, world!</Text>
-        <CheckBox title="Click Here" checked={true} />
-      </View>
-    );
-  }
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Hello, world!</Text>
+      <CheckBox title="Click Here" checked={true} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
