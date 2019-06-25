@@ -16,26 +16,20 @@ import {
   Rows,
   Cell
 } from "react-native-table-component";
-import { CheckBox } from "react-native-elements"
 
 export default class ExampleFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    tableHead: ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"],
-    tableData: [
-      ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
-      ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
-      ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
-    ]};      
+      tableHead: ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"],
+      tableData: [
+        ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
+        ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
+        ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
+      ]
+    };
   }
   render() {
-    const products = [
-      {id: 1, name: "молоко"},
-      {id: 2, name: "авокадо"},
-      {id: 3, name: "Картофель"}
-  ];
-    const tableData = products.map(({id, name}) => [id, '☑️', name, '36,9 ₽', '2', 'упк' ]);
     const state = this.state;
     <View style={styles.btn}>
       <Text style={styles.btnText}>касса</Text>
@@ -50,17 +44,14 @@ export default class ExampleFour extends Component {
             style={styles.head}
             textStyle={styles.text}
           />
-          {
-            state.tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex === 3 ? element(cellData, index) : cellData} textStyle={styles.text}/>
-                  ))
-                }
-              </TableWrapper>
-            ))
-          }
+          <TableWrapper style={styles.row}>
+            <Rows
+              data={state.tableData}
+              flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]}
+              style={styles.row}
+              textStyle={styles.text}
+            />
+          </TableWrapper>
         </Table>
         <UselessTextInput />
         <View style={styles.total}>
