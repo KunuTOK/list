@@ -1,32 +1,31 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import { CheckBox } from "react-native-elements";
 
-
- export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hello, world!</Text>
-        <CheckBox
-        checkedIcon={<Image source={require('../list/image/checked.png')} />}
-        uncheckedIcon={<Image source={require('../list/image/unchecked.png')} />}
-        checked={true}
-        onPress={() => this.setState({checked: !true})}
-        />
-      </View>
-
-    );
-  }
+export default function App() {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <View style={styles.container}>
+      <Text>Hello, world!</Text>
+      <CheckBox
+        checkedIcon={<Image source={require("../list/image/checked.png")} />}
+        uncheckedIcon={
+          <Image source={require("../list/image/unchecked.png")} />
+        }
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+      />
+    </View>
+  );
 }
 
- const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 // Примечание: hello world взято у себя для проверки раотоспособности. добавлен только CheckBox вот от сюда https://react-native-training.github.io/react-native-elements/docs/checkbox.html#checkedtitle
