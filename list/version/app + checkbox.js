@@ -16,24 +16,22 @@ import {
   Rows,
   Cell
 } from "react-native-table-component";
+import { CheckBox } from "react-native-elements"
 
 export default class ExampleFour extends Component {
   constructor(props) {
-    super(props);
+    super(props);      
     this.state = {
-      tableHead: ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"],
-      tableData: [
-        ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
-        ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
-        ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
-      ]
-    };
+    tableHead: ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"],
+    tableData: [
+      ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
+      ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
+      ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
+    ]};      
   }
   render() {
-    const state = this.state;
-    <View style={styles.btn}>
-      <Text style={styles.btnText}>касса</Text>
-    </View>;
+       const state = this.state;
+       const [checked, setChecked] = React.useState(false);
 
     return (
       <View style={styles.container}>
@@ -53,6 +51,10 @@ export default class ExampleFour extends Component {
             />
           </TableWrapper>
         </Table>
+        <CheckBox
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+        />
         <UselessTextInput />
         <View style={styles.total}>
           <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
