@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     alignItems: "stretch",
-    justifyContent: "space betwen"
+    justifyContent: "space-between"
   }
 });
