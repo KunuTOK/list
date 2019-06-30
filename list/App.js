@@ -17,52 +17,40 @@ import {
   Cell
 } from "react-native-table-component";
 
-export default class ExampleFour extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"],
-      tableData: [
-        ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
-        ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
-        ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
-      ]
-    };
-  }
-  render() {
-    const state = this.state;
-    <View style={styles.btn}>
-      <Text style={styles.btnText}>касса</Text>
-    </View>;
-
-    return (
-      <View style={styles.container}>
-        <Table borderStyle={{ borderColor: "transparent" }}>
-          <Row
-            data={state.tableHead}
+export default function ExampleFour() {
+  const tableHead = ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"];
+  const tableData = [
+    ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
+    ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
+    ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
+  ];
+  return (
+    <View style={styles.container}>
+      <Table borderStyle={{ borderColor: "transparent" }}>
+        <Row
+          data={tableHead}
+          flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]}
+          style={styles.head}
+          textStyle={styles.text}
+        />
+        <TableWrapper style={styles.row}>
+          <Rows
+            data={tableData}
             flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]}
-            style={styles.head}
+            style={styles.row}
             textStyle={styles.text}
           />
-          <TableWrapper style={styles.row}>
-            <Rows
-              data={state.tableData}
-              flexArr={[0.35, 0.35, 1, 0.75, 0.75, 0.55]}
-              style={styles.row}
-              textStyle={styles.text}
-            />
-          </TableWrapper>
-        </Table>
-        <UselessTextInput />
-        <View style={styles.total}>
-          <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
-        </View>
-        <View style={styles.btn}>
-          <Text style={styles.btnText}>касса</Text>
-        </View>
+        </TableWrapper>
+      </Table>
+      <UselessTextInput />
+      <View style={styles.total}>
+        <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
       </View>
-    );
-  }
+      <View style={styles.btn}>
+        <Text style={styles.btnText}>касса</Text>
+      </View>
+    </View>
+  );
 }
 
 function UselessTextInput() {
