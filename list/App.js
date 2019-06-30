@@ -16,6 +16,7 @@ import {
   Rows,
   Cell
 } from "react-native-table-component";
+import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
   const tableHead = ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"];
@@ -49,6 +50,12 @@ export default function ExampleFour() {
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
+      <Text>Hello, world!</Text>
+      <CheckBox
+        title="Click Here"
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+      />
     </View>
   );
 }
