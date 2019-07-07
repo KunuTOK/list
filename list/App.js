@@ -19,9 +19,21 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
+  const [checked, setChecked] = React.useState(false);
   const tableHead = ["№", "☑", "Товар", "цена", "количество", "шт,упк,г,мл"];
   const tableData = [
-    ["1", "☑", "молоко", "36,9 ₽", "2", "упк"],
+    [
+      "1",
+      <CheckBox
+        title="Click Here"
+        checked={checked}
+        onPress={() => setChecked(!checked)}
+      />,
+      "молоко",
+      "36,9 ₽",
+      "2",
+      "упк"
+    ],
     ["2", "☑", "авокадо", "60 ₽", "3", "шт"],
     ["3", "☑", "Картофель", "15 ₽ ", "5", "кг"]
   ];
