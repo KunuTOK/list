@@ -19,7 +19,7 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
-  const [checked, setChecked] = React.useState(false); 
+  const [checked, setChecked] = React.useState(false);
   const [checked1, setChecked1] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
   const [checked3, setChecked3] = React.useState(false);
@@ -27,27 +27,28 @@ export default function ExampleFour() {
   const tableData = [
     [
       "1",
-      <CheckBox
-        checked={checked}
-        onPress={() => setChecked(!checked)}
-      /> ,
+      <CheckBox checked={checked} onPress={() => setChecked(!checked)} />,
       "молоко",
       "36,9 ₽",
       "2",
       "упк"
     ],
-    ["2",
-     <CheckBox
-    checked={checked2}
-    onPress={() => setChecked2(!checked2)}
-  />,
-   "авокадо", "60 ₽", "3", "шт"],
-    ["3", 
-    <CheckBox
-    checked={checked3}
-    onPress={() => setChecked3(!checked3)}
-  />,
-   "Картофель", "15 ₽ ", "5", "кг"]
+    [
+      "2",
+      <CheckBox checked={checked2} onPress={() => setChecked2(!checked2)} />,
+      "авокадо",
+      "60 ₽",
+      "3",
+      "шт"
+    ],
+    [
+      "3",
+      <CheckBox checked={checked3} onPress={() => setChecked3(!checked3)} />,
+      "Картофель",
+      "15 ₽ ",
+      "5",
+      "кг"
+    ]
   ];
   return (
     <View style={styles.container}>
