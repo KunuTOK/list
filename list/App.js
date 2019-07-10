@@ -20,44 +20,45 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
-  const [checked, setChecked] = React.useState({
-    zero: false,
-    first: false,
-    second: false
-  });
-  const [price] = React.useState({
-    zero: 15,
-    first: 180,
-    second: 75
-  });
+  const [items, setItems] = React.useState([
+    {checked: false, price: 36.8},
+    {checked: false, price: 180},
+    {checked: false, price: 75}
+]);
+const toggleCheckbox = (i) => {
+  let item = items[i];
+  const newItems = [...items]
+  newItems[i] = {...item, checked: !item.checked}
+  setItems(newItems)
+}
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = [
     [
       "1",
       <CheckBox
-        checked={checked.zero}
-        onPress={() => setChecked({ ...checked, zero: !checked.zero })}
+        checked={items[0].checked}
+        onPress={() => toggleCheckbox(0)}
       />,
       "Молоко",
-      <Text style={styles.text}>{price.zero}</Text>
+      <Text style={styles.text}>{items[0].price}</Text>
     ],
     [
       "2",
       <CheckBox
-        checked={checked.first}
-        onPress={() => setChecked({ ...checked, first: !checked.first })}
+        checked={items[1].checked}
+        onPress={() => toggleCheckbox(1)}
       />,
       "Авокадо",
-      <Text style={styles.text}>{price.first}</Text>
+      <Text style={styles.text}>{items[1].price}</Text>
     ],
     [
       "3",
       <CheckBox
-        checked={checked.second}
-        onPress={() => setChecked({ ...checked, second: !checked.second })}
+        checked={items[2].checked}
+        onPress={() => toggleCheckbox(2)}
       />,
       "Картофель",
-      <Text style={styles.text}>{price.second}</Text>
+      <Text style={styles.text}>{items[2].price}</Text>
     ]
   ];
 
