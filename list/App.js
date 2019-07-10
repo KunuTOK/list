@@ -25,6 +25,11 @@ export default function ExampleFour() {
     first: false,
     second: false
   });
+  const [price] = React.useState({
+    zero: 15,
+    first: 180,
+    second: 75
+  });
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = [
     [
@@ -34,7 +39,7 @@ export default function ExampleFour() {
         onPress={() => setChecked({ ...checked, zero: !checked.zero })}
       />,
       "Молоко",
-      "73,8 ₽"
+      <Text style={styles.text}>{price.zero}</Text>
     ],
     [
       "2",
@@ -43,7 +48,7 @@ export default function ExampleFour() {
         onPress={() => setChecked({ ...checked, first: !checked.first })}
       />,
       "Авокадо",
-      "180 ₽"
+      <Text style={styles.text}>{price.first}</Text>
     ],
     [
       "3",
@@ -52,7 +57,7 @@ export default function ExampleFour() {
         onPress={() => setChecked({ ...checked, second: !checked.second })}
       />,
       "Картофель",
-      "75 ₽ "
+      <Text style={styles.text}>{price.second}</Text>
     ]
   ];
 
