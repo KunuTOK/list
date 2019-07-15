@@ -22,16 +22,16 @@ import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
   const [items, setItems] = React.useState([
-    {checked: false, price: 36.8, title: "Молоко"},
-    {checked: false, price: 180, title: "Авокадо"},
-    {checked: false, price: 75, title: "Картофель"}
-]);
-const toggleCheckbox = (i) => {
-  let item = items[i];
-  const newItems = [...items]
-  newItems[i] = {...item, checked: !item.checked}
-  setItems(newItems)
-}
+    { checked: false, price: 36.8, title: "Молоко" },
+    { checked: false, price: 180, title: "Авокадо" },
+    { checked: false, price: 75, title: "Картофель" }
+  ]);
+  const toggleCheckbox = i => {
+    let item = items[i];
+    const newItems = [...items];
+    newItems[i] = { ...item, checked: !item.checked };
+    setItems(newItems);
+  };
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
