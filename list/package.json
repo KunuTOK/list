@@ -9,13 +9,17 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@babel/runtime": "^7.5.4",
+    "@types/expo": "^32.0.13",
+    "@types/react-native": "^0.60.0",
     "expo": "^33.0.0",
     "expo-cli": "^2.20.5",
     "prettier": "^1.18.2",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
-    "react-native-table-component": "^1.2.0"
+    "react-native-table-component": "^1.2.0",
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

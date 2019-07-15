@@ -1,3 +1,4 @@
+// @ts-check
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -7,8 +8,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Alert,
-  submitAndClear
+  Alert
 } from "react-native";
 import {
   Table,
@@ -21,16 +21,24 @@ import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
   const [items, setItems] = React.useState([
-    {checked: false, price: 36.8, title: "Молоко"},
-    {checked: false, price: 180, title: "Авокадо"},
-    {checked: false, price: 75, title: "Картофель"}
-]);
-const toggleCheckbox = (i) => {
-  let item = items[i];
-  const newItems = [...items]
-  newItems[i] = {...item, checked: !item.checked}
-  setItems(newItems)
-}
+    { checked: false, price: 36.8, title: "Молоко" },
+    { checked: false, price: 180, title: "Авокадо" },
+    { checked: false, price: 75, title: "Картофель" }
+  ]);
+  const toggleCheckbox = i => {
+    let item = items[i];
+    const newItems = [...items];
+    newItems[i] = { ...item, checked: !item.checked };
+    setItems(newItems);
+  };
+  /**
+   * @param {string} title
+   */
+  const onSubmit = title => {
+    const newItems = [...items];
+    newItems.push({ checked: false, price: 0, title });
+    setItems(newItems);
+  };
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
@@ -56,7 +64,7 @@ const toggleCheckbox = (i) => {
           />
         </TableWrapper>
       </Table>
-      <UselessTextInput />
+      <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.total}>
         <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
       </View>
@@ -67,8 +75,12 @@ const toggleCheckbox = (i) => {
   );
 }
 
-function UselessTextInput() {
+function UselessTextInput({ onSubmit }) {
   const [text, setText] = React.useState("");
+  const submitAndClear = () => {
+    setText("");
+    onSubmit(text);
+  };
   return (
     <View>
       <TextInput
