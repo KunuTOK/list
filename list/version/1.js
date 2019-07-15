@@ -20,42 +20,31 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
-  const [checked, setChecked] = React.useState({
-    zero: false,
-    first: false,
-    second: false
-  });
+  const [checked, setChecked] = React.useState(false);
+  const [checked1, setChecked1] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(false);
+  const [checked3, setChecked3] = React.useState(false);
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = [
     [
       "1",
-      <CheckBox
-        checked={checked.zero}
-        onPress={() => setChecked({ ...checked, zero: !checked.zero })}
-      />,
+      <CheckBox checked={checked} onPress={() => setChecked(!checked)} />,
       "Молоко",
       "73,8 ₽"
     ],
     [
       "2",
-      <CheckBox
-        checked={checked.first}
-        onPress={() => setChecked({ ...checked, first: !checked.first })}
-      />,
+      <CheckBox checked={checked2} onPress={() => setChecked2(!checked2)} />,
       "Авокадо",
       "180 ₽"
     ],
     [
       "3",
-      <CheckBox
-        checked={checked.second}
-        onPress={() => setChecked({ ...checked, second: !checked.second })}
-      />,
+      <CheckBox checked={checked3} onPress={() => setChecked3(!checked3)} />,
       "Картофель",
       "75 ₽ "
     ]
   ];
-
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderColor: "transparent" }}>
@@ -81,6 +70,12 @@ export default function ExampleFour() {
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
+      <Text>Hello, world!</Text>
+      <CheckBox
+        title="Click Here"
+        checked={checked1}
+        onPress={() => setChecked1(!checked1)}
+      />
     </View>
   );
 }
@@ -93,7 +88,7 @@ function UselessTextInput() {
         style={styles.find}
         onChangeText={text => setText(text)}
         value={text}
-        placeholder="введите например: Молоко"
+        placeholder='введите например: Молоко'
         clearButtonMode="always"
       />
       <Button
