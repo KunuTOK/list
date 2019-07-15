@@ -19,6 +19,8 @@ import {
 } from "react-native-table-component";
 import { CheckBox } from "react-native-elements";
 
+
+
 export default function ExampleFour() {
   const [items, setItems] = React.useState([
     {checked: false, price: 36.8, title: "Молоко"},
@@ -38,6 +40,9 @@ const toggleCheckbox = (i) => {
     <Text style={styles.text}>{item.title}</Text>,
     <Text style={styles.text}>{item.price}</Text>
   ]);
+
+  console.warn(tableData)
+
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderColor: "transparent" }}>
@@ -66,6 +71,8 @@ const toggleCheckbox = (i) => {
     </View>
   );
 }
+
+
 
 function UselessTextInput() {
   const [text, setText] = React.useState("");
