@@ -8,8 +8,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Alert,
-  submitAndClear
+  Alert
 } from "react-native";
 import {
   Table,
@@ -30,6 +29,14 @@ export default function ExampleFour() {
     let item = items[i];
     const newItems = [...items];
     newItems[i] = { ...item, checked: !item.checked };
+    setItems(newItems);
+  };
+  /**
+   * @param {string} title
+   */
+  const onSubmit = title => {
+    const newItems = [...items];
+    newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
   };
   const tableHead = ["№", "☑", "Товар", "цена"];
@@ -57,7 +64,7 @@ export default function ExampleFour() {
           />
         </TableWrapper>
       </Table>
-      <UselessTextInput />
+      <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.total}>
         <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
       </View>
@@ -68,8 +75,12 @@ export default function ExampleFour() {
   );
 }
 
-function UselessTextInput() {
+function UselessTextInput({ onSubmit }) {
   const [text, setText] = React.useState("");
+  const submitAndClear = () => {
+    setText("");
+    onSubmit(text);
+  };
   return (
     <View>
       <TextInput
