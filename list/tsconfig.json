@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "outDir": "build/dist",
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["build", "node_modules"]
+}
