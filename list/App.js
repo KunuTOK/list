@@ -20,42 +20,24 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
-  const [checked, setChecked] = React.useState({
-    zero: false,
-    first: false,
-    second: false
-  });
+  const [items, setItems] = React.useState([
+    {checked: false, price: 36.8, title: "Молоко"},
+    {checked: false, price: 180, title: "Авокадо"},
+    {checked: false, price: 75, title: "Картофель"}
+]);
+const toggleCheckbox = (i) => {
+  let item = items[i];
+  const newItems = [...items]
+  newItems[i] = {...item, checked: !item.checked}
+  setItems(newItems)
+}
   const tableHead = ["№", "☑", "Товар", "цена"];
-  const tableData = [
-    [
-      "1",
-      <CheckBox
-        checked={checked.zero}
-        onPress={() => setChecked({ ...checked, zero: !checked.zero })}
-      />,
-      "Молоко",
-      "73,8 ₽"
-    ],
-    [
-      "2",
-      <CheckBox
-        checked={checked.first}
-        onPress={() => setChecked({ ...checked, first: !checked.first })}
-      />,
-      "Авокадо",
-      "180 ₽"
-    ],
-    [
-      "3",
-      <CheckBox
-        checked={checked.second}
-        onPress={() => setChecked({ ...checked, second: !checked.second })}
-      />,
-      "Картофель",
-      "75 ₽ "
-    ]
-  ];
-
+  const tableData = items.map((item, i) => [
+    i + 1,
+    <CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
+    <Text style={styles.text}>{item.title}</Text>,
+    <Text style={styles.text}>{item.price}</Text>
+  ]);
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderColor: "transparent" }}>
