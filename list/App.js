@@ -1,5 +1,7 @@
 // @ts-check
 import React, { Component } from "react";
+import SwipeablePanel from "rn-swipeable-panel";
+
 import {
   StyleSheet,
   Text,
@@ -71,6 +73,9 @@ export default function ExampleFour() {
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
+      <SwipeablePanel isActive={items[0].checked} onClose={() => {}}>
+        <Text>test</Text>
+      </SwipeablePanel>
     </View>
   );
 }
