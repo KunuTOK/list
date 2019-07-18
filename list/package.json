@@ -19,6 +19,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
     "react-native-table-component": "^1.2.0",
+    "rn-swipeable-panel": "^1.0.12",
     "typescript": "^3.5.3"
   },
   "devDependencies": {

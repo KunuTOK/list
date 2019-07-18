@@ -1,5 +1,7 @@
 // @ts-check
 import React, { Component } from "react";
+import SwipeablePanel from "rn-swipeable-panel";
+
 import {
   StyleSheet,
   Text,
@@ -20,6 +22,7 @@ import {
 import { CheckBox } from "react-native-elements";
 
 export default function ExampleFour() {
+  const [editingItemNumber, setEditingItemNumber] = React.useState();
   const [items, setItems] = React.useState([
     { checked: false, price: 36.8, title: "Молоко" },
     { checked: false, price: 180, title: "Авокадо" },
@@ -43,7 +46,9 @@ export default function ExampleFour() {
   const tableData = items.map((item, i) => [
     i + 1,
     <CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
-    <Text style={styles.text}>{item.title}</Text>,
+    <Text style={styles.text} onPress={() => setEditingItemNumber(i)}>
+      {item.title}
+    </Text>,
     <Text style={styles.text}>{item.price}</Text>
   ]);
   return (
@@ -71,6 +76,18 @@ export default function ExampleFour() {
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
+      <SwipeablePanel
+        isActive={editingItemNumber !== undefined}
+        onClose={() => {
+          setEditingItemNumber(undefined);
+        }}
+      >
+        {editingItemNumber !== undefined ? (
+          <Text>
+            Editing {editingItemNumber + 1}: {items[editingItemNumber].title}
+          </Text>
+        ) : null}
+      </SwipeablePanel>
     </View>
   );
 }
