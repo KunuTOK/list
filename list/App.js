@@ -1,6 +1,7 @@
 // @ts-check
 import React, { Component } from "react";
 import SwipeablePanel from "rn-swipeable-panel";
+import {KeyboardTrackingView} from 'react-native-keyboard-tracking-view';
 
 import {
   StyleSheet,
@@ -8,9 +9,8 @@ import {
   View,
   AppRegistry,
   TextInput,
-  Button,
-  TouchableOpacity,
-  Alert
+  Button,  
+  ScrollView,
 } from "react-native";
 import {
   Table,
@@ -51,8 +51,11 @@ export default function ExampleFour() {
     </Text>,
     <Text style={styles.text}>{item.price}</Text>
   ]);
+   
   return (
     <View style={styles.container}>
+      <ScrollView>
+      {
       <Table borderStyle={{ borderColor: "transparent" }}>
         <Row
           data={tableHead}
@@ -69,10 +72,12 @@ export default function ExampleFour() {
           />
         </TableWrapper>
       </Table>
-      <UselessTextInput onSubmit={onSubmit} />
+    }
+      </ScrollView> 
       <View style={styles.total}>
         <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
-      </View>
+      </View>     
+        <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
@@ -100,14 +105,14 @@ function UselessTextInput({ onSubmit }) {
   };
   return (
     <View>
-      <TextInput
+        <TextInput
         style={styles.find}
         onChangeText={text => setText(text)}
         value={text}
         placeholder="введите например: Молоко"
         clearButtonMode="always"
       />
-      <Button
+        <Button
         onPress={submitAndClear}
         title="добавить"
         color="#841584"
