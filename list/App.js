@@ -1,7 +1,7 @@
-// @ts-check
+// @ts-nocheck
+
 import React, { Component } from "react";
 import SwipeablePanel from "rn-swipeable-panel";
-import {KeyboardTrackingView} from 'react-native-keyboard-tracking-view';
 
 import {
   StyleSheet,
