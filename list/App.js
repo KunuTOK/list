@@ -1,7 +1,8 @@
-// @ts-nocheck
+// @ts-check
 
 import React, { Component } from "react";
 import SwipeablePanel from "rn-swipeable-panel";
+import { SQLite } from "expo-sqlite";
 
 import {
   StyleSheet,
@@ -9,8 +10,8 @@ import {
   View,
   AppRegistry,
   TextInput,
-  Button,  
-  ScrollView,
+  Button,
+  ScrollView
 } from "react-native";
 import {
   Table,
@@ -20,6 +21,42 @@ import {
   Cell
 } from "react-native-table-component";
 import { CheckBox } from "react-native-elements";
+
+const db = SQLite.openDatabase("db.db");
+
+const sql = (query: string, args: (string | number)[] = []) =>
+  new Promise(
+    (
+      resolve: (x: {
+        insertId?: number,
+        rowsAffected: number,
+        rows: Array<{
+          [column: string]: any
+        }>
+      }) => void,
+      reject
+    ) =>
+      db.transaction(tx =>
+        tx.executeSql(
+          query,
+          args,
+          (tx, result) => resolve(result),
+          (tx, err) => reject(err)
+        )
+      )
+  );
+
+sql(
+  "create table if not exists items (id integer primary key not null, done int, value text);"
+).then(
+  x => console.log("table created"),
+  x => console.error("failed to create a table", x)
+);
+
+sql(`select * from items where done = 1;`).then(
+  x => console.warn("success", x.rowsAffected),
+  x => console.log("error", x)
+);
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
@@ -51,33 +88,33 @@ export default function ExampleFour() {
     </Text>,
     <Text style={styles.text}>{item.price}</Text>
   ]);
-   
+
   return (
     <View style={styles.container}>
       <ScrollView>
-      {
-      <Table borderStyle={{ borderColor: "transparent" }}>
-        <Row
-          data={tableHead}
-          flexArr={[0.35, 0.35, 1, 0.75]}
-          style={styles.head}
-          textStyle={styles.text}
-        />
-        <TableWrapper style={styles.row}>
-          <Rows
-            data={tableData}
-            flexArr={[0.26, 0.45, 1, 0.75]}
-            style={styles.row}
-            textStyle={styles.text}
-          />
-        </TableWrapper>
-      </Table>
-    }
-      </ScrollView> 
+        {
+          <Table borderStyle={{ borderColor: "transparent" }}>
+            <Row
+              data={tableHead}
+              flexArr={[0.35, 0.35, 1, 0.75]}
+              style={styles.head}
+              textStyle={styles.text}
+            />
+            <TableWrapper style={styles.row}>
+              <Rows
+                data={tableData}
+                flexArr={[0.26, 0.45, 1, 0.75]}
+                style={styles.row}
+                textStyle={styles.text}
+              />
+            </TableWrapper>
+          </Table>
+        }
+      </ScrollView>
       <View style={styles.total}>
         <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
-      </View>     
-        <UselessTextInput onSubmit={onSubmit} />
+      </View>
+      <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
       </View>
@@ -105,14 +142,14 @@ function UselessTextInput({ onSubmit }) {
   };
   return (
     <View>
-        <TextInput
+      <TextInput
         style={styles.find}
         onChangeText={text => setText(text)}
         value={text}
         placeholder="введите например: Молоко"
         clearButtonMode="always"
       />
-        <Button
+      <Button
         onPress={submitAndClear}
         title="добавить"
         color="#841584"
