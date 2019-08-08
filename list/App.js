@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import SwipeablePanel from "rn-swipeable-panel";
 import { SQLite } from "expo-sqlite";
+import { CalculatorInput } from 'react-native-calculator'
 
 import {
   StyleSheet,
@@ -11,18 +12,20 @@ import {
   AppRegistry,
   TextInput,
   Button,
-  ScrollView
+  ScrollView,
+  StatusBar,
 } from "react-native";
 import {
   Table,
   TableWrapper,
   Row,
   Rows,
-  Cell
+
 } from "react-native-table-component";
-import { CheckBox } from "react-native-elements";
+import { CheckBox, } from "react-native-elements";
 
 const db = SQLite.openDatabase("db.db");
+
 
 const sql = (query: string, args: (string | number)[] = []) =>
   new Promise(
@@ -88,6 +91,7 @@ export default function ExampleFour() {
     </Text>,
     <Text style={styles.text}>{item.price}</Text>
   ]);
+  const [text, setText] = React.useState("");
 
   return (
     <View style={styles.container}>
@@ -125,10 +129,16 @@ export default function ExampleFour() {
         }}
       >
         {editingItemNumber !== undefined ? (
-          <Text>
-            Editing {editingItemNumber + 1}: {items[editingItemNumber].title}
+          <Text style={styles.text}>
+            № {editingItemNumber + 1}: {items[editingItemNumber].title}
           </Text>
         ) : null}
+           <Text style={styles.text}>Цена</Text>
+        <CalculatorInput
+          onChange={ number }
+          fieldTextStyle={{ fontSize: 24 }}
+          fieldContainerStyle={{ height: 36 }}
+        />
       </SwipeablePanel>
     </View>
   );
