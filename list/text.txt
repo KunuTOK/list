@@ -1,0 +1,30 @@
+
+Items	Price Quantity unit_price          Sum     date
+Молоко  73,2  2        36,6               253,2   24.02.2019
+Авокадо 180   3        60
+
+
+
+Create table check ( id INT, Items VARCHAR(255) NOT NULL, Price NUM, Quantity VARCHAR(255), unit_price  NUM, Sum NUM, date TEXT);
+
+главная страница ЧЕК
+Items varchar(255),
+Price Smallmoney,
+Sum Smallmoney,
+
+редактирование товара
+Quantity Tinyint (1-255),
+unit_price  Smallmone,
+
+страница «касса»
+date SmallDatetime,
+Sum Smallmoney,
+
+
+Запрос
+на ввод имени товара
+insert into db (Items) values (UselessTextInput)
+на ввод количества и цены
+insert into db (Quantity, unit_price) values (UselessTextInput1, UselessTextInput2)
+на ввод даты и суммы
+insert into db (Price, Sum, date ) values (произведение  Quantity и unit_price, сумма всех Price, data)
