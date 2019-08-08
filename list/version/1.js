@@ -88,7 +88,7 @@ function UselessTextInput() {
         style={styles.find}
         onChangeText={text => setText(text)}
         value={text}
-        placeholder='введите например: Молоко'
+        placeholder="введите например: Молоко"
         clearButtonMode="always"
       />
       <Button

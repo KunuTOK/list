@@ -17,6 +17,7 @@
     "prettier": "^1.18.2",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-calculator": "^0.5.2",
     "react-native-elements": "^1.1.0",
     "react-native-table-component": "^1.2.0",
     "rn-swipeable-panel": "^1.0.12",
