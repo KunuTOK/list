@@ -65,7 +65,7 @@ sql(
  );
 
 sql(`select * from receipt;`).then(
-  x => console.warn("success", x.rowsAffected),
+  x => console.warn("success", x.rows),
   x => console.log("error", x)
 );
 
@@ -86,6 +86,9 @@ export default function ExampleFour() {
    * @param {string} title
    */
   const onSubmit = title => {
+    sql(
+      "insert into receipt (id,items) values (1,?)", [title]
+      )
     const newItems = [...items];
     newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
@@ -143,7 +146,6 @@ export default function ExampleFour() {
         ) : null}
            <Text style={styles.text}>Цена</Text>
         <CalculatorInput
-          onChange={ number }
           fieldTextStyle={{ fontSize: 24 }}
           fieldContainerStyle={{ height: 36 }}
         />
