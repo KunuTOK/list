@@ -14,6 +14,7 @@ import {
   Button,
   ScrollView,
   number,
+  onSubmit,
 } from "react-native";
 import {
   Table,
@@ -50,20 +51,20 @@ const sql = (query: string, args: (string | number)[] = []) =>
   );
 
 sql(
- "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT NOT NULL, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
+ "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
  ).then(
   x => console.log("table created"),
   x => console.error("failed to create a table", x)
 );
 
 sql(
-  "insert into receipt (id,items) values (1,'kolbasa');"
+  "insert into receipt (id,items) values (1,?)", ["",onSubmit]
   ).then(
-   x => console.log("table add,x"),
+   x => console.log("table add",x),
    x => console.error("failed to add a table", x)
  );
 
-sql(`select * from items where done = 1;`).then(
+sql(`select * from receipt;`).then(
   x => console.warn("success", x.rowsAffected),
   x => console.log("error", x)
 );
