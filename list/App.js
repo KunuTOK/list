@@ -57,17 +57,7 @@ sql(
   x => console.error("failed to create a table", x)
 );
 
-sql(
-  "insert into receipt (id,items) values (1,?)", ["",onSubmit]
-  ).then(
-   x => console.log("table add",x),
-   x => console.error("failed to add a table", x)
- );
 
-sql(`select * from receipt;`).then(
-  x => console.warn("success", x.rows),
-  x => console.log("error", x)
-);
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
@@ -88,11 +78,18 @@ export default function ExampleFour() {
   const onSubmit = title => {
     sql(
       "insert into receipt (id,items) values (1,?)", [title]
-      )
+      ).then(
+        x => console.log("table add",x),
+        x => console.error("failed to add a table", x));
     const newItems = [...items];
     newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
   };
+  sql(`select * from receipt;`).then(
+    x => console.warn("success", x.rows),
+    x => console.log("error", x)
+  );
+
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
