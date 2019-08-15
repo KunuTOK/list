@@ -13,7 +13,8 @@ import {
   TextInput,
   Button,
   ScrollView,
-  StatusBar,
+  number,
+  onSubmit,
 } from "react-native";
 import {
   Table,
@@ -50,16 +51,13 @@ const sql = (query: string, args: (string | number)[] = []) =>
   );
 
 sql(
-  "create table if not exists items (id integer primary key not null, done int, value text);"
-).then(
+ "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
+ ).then(
   x => console.log("table created"),
   x => console.error("failed to create a table", x)
 );
 
-sql(`select * from items where done = 1;`).then(
-  x => console.warn("success", x.rowsAffected),
-  x => console.log("error", x)
-);
+
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
@@ -78,10 +76,20 @@ export default function ExampleFour() {
    * @param {string} title
    */
   const onSubmit = title => {
+    sql(
+      "insert into receipt (id,items) values (1,?)", [title]
+      ).then(
+        x => console.log("table add",x),
+        x => console.error("failed to add a table", x));
     const newItems = [...items];
     newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
   };
+  sql(`select * from receipt;`).then(
+    x => console.warn("success", x.rows),
+    x => console.log("error", x)
+  );
+
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
@@ -135,7 +143,6 @@ export default function ExampleFour() {
         ) : null}
            <Text style={styles.text}>Цена</Text>
         <CalculatorInput
-          onChange={ number }
           fieldTextStyle={{ fontSize: 24 }}
           fieldContainerStyle={{ height: 36 }}
         />
