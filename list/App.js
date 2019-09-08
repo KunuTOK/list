@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import SwipeablePanel from "rn-swipeable-panel";
 import { SQLite } from "expo-sqlite";
-import { CalculatorInput } from 'react-native-calculator'
+import { CalculatorInput } from "react-native-calculator";
 
 import {
   StyleSheet,
@@ -13,20 +13,13 @@ import {
   TextInput,
   Button,
   ScrollView,
-  number,
-  onSubmit,
-} from "react-native";
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-
-} from "react-native-table-component";
-import { CheckBox, } from "react-native-elements";
+  y,
+  Summ,
+  } from "react-native";
+import { Table, TableWrapper, Row, Rows } from "react-native-table-component";
+import { CheckBox } from "react-native-elements";
 
 const db = SQLite.openDatabase("db.db");
-
 
 const sql = (query: string, args: (string | number)[] = []) =>
   new Promise(
@@ -51,20 +44,18 @@ const sql = (query: string, args: (string | number)[] = []) =>
   );
 
 sql(
- "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
- ).then(
+  "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
+).then(
   x => console.log("table created"),
   x => console.error("failed to create a table", x)
 );
-
-
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
   const [items, setItems] = React.useState([
     { checked: false, price: 36.8, title: "Молоко" },
     { checked: false, price: 180, title: "Авокадо" },
-    { checked: false, price: 75, title: "Картофель" }
+    { checked: false, price: 75.2, title: "Картофель" }
   ]);
   const toggleCheckbox = i => {
     let item = items[i];
@@ -76,11 +67,10 @@ export default function ExampleFour() {
    * @param {string} title
    */
   const onSubmit = title => {
-    sql(
-      "insert into receipt (id,items) values (1,?)", [title]
-      ).then(
-        x => console.log("table add",x),
-        x => console.error("failed to add a table", x));
+    sql("insert into receipt (id,items) values (1,?)", [title]).then(
+      x => console.log("table add", x),
+      x => console.error("failed to add a table", x)
+    );
     const newItems = [...items];
     newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
@@ -100,6 +90,9 @@ export default function ExampleFour() {
     <Text style={styles.text}>{item.price}</Text>
   ]);
   const [text, setText] = React.useState("");
+  const y = items.map(x => x.price);
+  const Sum = y.reduce((sum, current) => sum + current);
+
 
   return (
     <View style={styles.container}>
@@ -124,7 +117,7 @@ export default function ExampleFour() {
         }
       </ScrollView>
       <View style={styles.total}>
-        <Text style={styles.totaltxt}> итого: 328,8 ₽ </Text>
+        <Text style={styles.totaltxt}> итого: {Sum} </Text>
       </View>
       <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.btn}>
@@ -141,7 +134,7 @@ export default function ExampleFour() {
             № {editingItemNumber + 1}: {items[editingItemNumber].title}
           </Text>
         ) : null}
-           <Text style={styles.text}>Цена</Text>
+        <Text style={styles.text}>Цена</Text>
         <CalculatorInput
           fieldTextStyle={{ fontSize: 24 }}
           fieldContainerStyle={{ height: 36 }}
