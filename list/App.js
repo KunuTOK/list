@@ -11,8 +11,8 @@ import {
   View,
   TextInput,
   Button,
-  ScrollView,
-  } from "react-native";
+  ScrollView
+} from "react-native";
 import { Table, TableWrapper, Row, Rows } from "react-native-table-component";
 import { CheckBox } from "react-native-elements";
 
@@ -24,7 +24,7 @@ const sql = (query: string, args: (string | number)[] = []) =>
       resolve: (x: {
         insertId?: number,
         rowsAffected: number,
-        rows: {length: number, item: (index: number) => any}
+        rows: { length: number, item: (index: number) => any }
       }) => void,
       reject
     ) =>
@@ -47,39 +47,41 @@ sql(
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
-  
-   const [items, setItems] = React.useState([
-    { checked: false, price: 36.8, title: "Молоко" },
-    { checked: false, price: 180, title: "Авокадо" },
-    { checked: false, price: 75.2, title: "Картофель" }
-  ]);
+
+  const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
-    console.log('onmount');
+    console.log("onmount");
     sql(`select * from receipt;`).then(
       x => {
         const rows = [];
         for (let step = 0; step < x.rows.length; step++) {
           rows.push(x.rows.item(step));
         }
-        console.warn("get rows", rows)
-        console.log(rows.length)
-        // for (let step = 0; step < x.rows.length; step++) {
-        //   console.log('Walking east one step', x.rows.item(step));
-        // }
-        setItems(rows.map(item => {
-          console.warn("item", item)
-          return { checked: false, price: 36.8, title: item.items || "Error" }
-        }))
+        console.warn("get rows", rows);
+        console.log(rows.length);
+        setItems(
+          rows.map(item => {
+            console.warn("item", item);
+            return {
+              checked: false,
+              price: 36.8,
+              title: item.items || "Error"
+            };
+          })
+        );
       },
       x => console.log("error", x)
     );
-  }, [])
- 
+  }, []);
+
   const toggleCheckbox = i => {
     let item = items[i];
     const newItems = [...items];
-    newItems[i] = { ...item, checked: !item.checked };
+    newItems[i] = {
+      ...item,
+      checked: !item.checked
+    };
     setItems(newItems);
   };
   /**
@@ -91,13 +93,17 @@ export default function ExampleFour() {
       x => console.error("failed to add a table", x)
     );
     const newItems = [...items];
-    newItems.push({ checked: false, price: 0, title });
+    newItems.push({
+      checked: false,
+      price: 0,
+      title
+    });
     setItems(newItems);
   };
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
-<CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
+    <CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
     <Text style={styles.text} onPress={() => setEditingItemNumber(i)}>
       {item.title}
     </Text>,
@@ -111,7 +117,11 @@ export default function ExampleFour() {
     <View style={styles.container}>
       <ScrollView>
         {
-          <Table borderStyle={{ borderColor: "transparent" }}>
+          <Table
+            borderStyle={{
+              borderColor: "transparent"
+            }}
+          >
             <Row
               data={tableHead}
               flexArr={[0.35, 0.35, 1, 0.75]}
@@ -149,8 +159,12 @@ export default function ExampleFour() {
         ) : null}
         <Text style={styles.text}>Цена</Text>
         <CalculatorInput
-          fieldTextStyle={{ fontSize: 24 }}
-          fieldContainerStyle={{ height: 36 }}
+          fieldTextStyle={{
+            fontSize: 24
+          }}
+          fieldContainerStyle={{
+            height: 36
+          }}
         />
       </SwipeablePanel>
     </View>
