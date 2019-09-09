@@ -9,12 +9,9 @@ import {
   StyleSheet,
   Text,
   View,
-  AppRegistry,
   TextInput,
   Button,
   ScrollView,
-  y,
-  Summ,
   } from "react-native";
 import { Table, TableWrapper, Row, Rows } from "react-native-table-component";
 import { CheckBox } from "react-native-elements";
@@ -27,9 +24,7 @@ const sql = (query: string, args: (string | number)[] = []) =>
       resolve: (x: {
         insertId?: number,
         rowsAffected: number,
-        rows: Array<{
-          [column: string]: any
-        }>
+        rows: {length: number, item: (index: number) => any}
       }) => void,
       reject
     ) =>
@@ -52,11 +47,35 @@ sql(
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
-  const [items, setItems] = React.useState([
+  
+   const [items, setItems] = React.useState([
     { checked: false, price: 36.8, title: "Молоко" },
     { checked: false, price: 180, title: "Авокадо" },
     { checked: false, price: 75.2, title: "Картофель" }
   ]);
+
+  React.useEffect(() => {
+    console.log('onmount');
+    sql(`select * from receipt;`).then(
+      x => {
+        const rows = [];
+        for (let step = 0; step < x.rows.length; step++) {
+          rows.push(x.rows.item(step));
+        }
+        console.warn("get rows", rows)
+        console.log(rows.length)
+        // for (let step = 0; step < x.rows.length; step++) {
+        //   console.log('Walking east one step', x.rows.item(step));
+        // }
+        setItems(rows.map(item => {
+          console.warn("item", item)
+          return { checked: false, price: 36.8, title: item.items || "Error" }
+        }))
+      },
+      x => console.log("error", x)
+    );
+  }, [])
+ 
   const toggleCheckbox = i => {
     let item = items[i];
     const newItems = [...items];
@@ -75,15 +94,10 @@ export default function ExampleFour() {
     newItems.push({ checked: false, price: 0, title });
     setItems(newItems);
   };
-  sql(`select * from receipt;`).then(
-    x => console.warn("success", x.rows),
-    x => console.log("error", x)
-  );
-
   const tableHead = ["№", "☑", "Товар", "цена"];
   const tableData = items.map((item, i) => [
     i + 1,
-    <CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
+<CheckBox checked={item.checked} onPress={() => toggleCheckbox(i)} />,
     <Text style={styles.text} onPress={() => setEditingItemNumber(i)}>
       {item.title}
     </Text>,
@@ -91,8 +105,7 @@ export default function ExampleFour() {
   ]);
   const [text, setText] = React.useState("");
   const y = items.map(x => x.price);
-  const Sum = y.reduce((sum, current) => sum + current);
-
+  const Sum = y.reduce((sum, current) => sum + current, 0);
 
   return (
     <View style={styles.container}>
