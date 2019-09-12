@@ -65,8 +65,10 @@ export default function ExampleFour() {
             console.warn("item", item);
             return {
               checked: false,
-              price: 36.8,
-              title: item.items || "Error"
+              sum: item.sum || 0,
+              title: item.items,
+              price: item.price,
+              quatity: item.quatity
             };
           })
         );
@@ -84,6 +86,20 @@ export default function ExampleFour() {
     };
     setItems(newItems);
   };
+  const deleteItem = i => {
+    let item = items[i];
+    const newItems = [...items];
+    newItems[i] = {
+      ...item,
+      checked: !item.checked
+    };
+    sql("DELETE FROM receipt  WHERE items = ?", [item.title]).then(
+      x => console.log(item.title, "title del", x),
+      x => console.error("failed to del a title", x)
+    );
+    sql("select * from receipt").then()
+    setItems(newItems);
+  };
   /**
    * @param {string} title
    */
@@ -95,7 +111,7 @@ export default function ExampleFour() {
     const newItems = [...items];
     newItems.push({
       checked: false,
-      price: 0,
+      sum: 0,
       title
     });
     setItems(newItems);
@@ -107,11 +123,57 @@ export default function ExampleFour() {
     <Text style={styles.text} onPress={() => setEditingItemNumber(i)}>
       {item.title}
     </Text>,
-    <Text style={styles.text}>{item.price}</Text>
+    <Text style={styles.text}>{item.sum}</Text>, 
+    <CheckBox checked={true}
+    center
+    iconRight
+    iconType='material'
+    checkedIcon='clear'
+    uncheckedIcon='add'
+    checkedColor='red'
+    onPress={() => deleteItem (i)}
+  />
   ]);
-  const [text, setText] = React.useState("");
-  const y = items.map(x => x.price);
+  const y = items.map(x => x.sum);
   const Sum = y.reduce((sum, current) => sum + current, 0);
+
+  const updateItemQuatity = i => {
+    let item = items[i];
+    const newItems = [...items];
+    newItems[i] = {
+      ...item,
+      quatity: !item.quatity
+    };
+    setItems(newItems);
+  };
+
+  const onSubmit1 = quatity => {
+    sql("UPDATE receipt SET quatity = ? WHERE items = ?", [
+      quatity
+    ]).then(
+    x => console.log("add", x.rows),
+    x => console.error("failed to add", x)
+    );
+    const newQuatity = [...items];
+    newQuatity.push({
+    });
+    setItems(newQuatity);
+  };
+  const onSubmit2 = price => {
+    sql("UPDATE receipt SET price = ? WHERE items = ?", [
+      price
+    ]).then(
+    x => console.log(" add", x.rows),
+    x => console.error("failed to add", x)
+    );
+    const newPrice = [...items];
+    newPrice.push({
+      price
+    });
+    setItems(newPrice);
+  };
+  const quatity = items.map(x => x.quatity);
+  const price = items.map(x => x.price);
 
   return (
     <View style={styles.container}>
@@ -154,10 +216,14 @@ export default function ExampleFour() {
       >
         {editingItemNumber !== undefined ? (
           <Text style={styles.text}>
-            № {editingItemNumber + 1}: {items[editingItemNumber].title}
+            № {editingItemNumber + 1}: {items[editingItemNumber].title}{" "}
+            {items[editingItemNumber].sum}
           </Text>
         ) : null}
-        <Text style={styles.text}>Цена</Text>
+        <Text style={styles.text}>количество {quatity}</Text>
+        <UselessTextInput1 onSubmit1={onSubmit1} />
+        <Text style={styles.text}>цена за единицу товара {price}</Text>
+        <UselessTextInput2 onSubmit2={onSubmit2} />
         <CalculatorInput
           fieldTextStyle={{
             fontSize: 24
@@ -195,6 +261,57 @@ function UselessTextInput({ onSubmit }) {
     </View>
   );
 }
+
+function UselessTextInput1({ onSubmit1 }) {
+  const [text, setText] = React.useState("");
+  const submitAndClear = () => {
+    setText("");
+    onSubmit1(text);
+  };
+  return (
+    <View>
+      <TextInput
+        style={styles.find}
+        onChangeText={text => setText(text)}
+        value={text}
+        placeholder="количество"
+        clearButtonMode="always"
+      />
+      <Button
+        onPress={submitAndClear}
+        title="добавить"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+    </View>
+  );
+}
+
+function UselessTextInput2({ onSubmit2 }) {
+  const [text, setText] = React.useState("");
+  const submitAndClear = () => {
+    setText("");
+    onSubmit2(text);
+  };
+  return (
+    <View>
+      <TextInput
+        style={styles.find}
+        onChangeText={text => setText(text)}
+        value={text}
+        placeholder="цена за единицу товара"
+        clearButtonMode="always"
+      />
+      <Button
+        onPress={submitAndClear}
+        title="добавить"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 0, paddingTop: 20, backgroundColor: "#fff" },
   head: { height: 40, backgroundColor: "#808B97" },
