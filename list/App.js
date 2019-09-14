@@ -37,9 +37,8 @@ const sql = (query: string, args: (string | number)[] = []) =>
         )
       )
   );
-
 sql(
-  "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quatity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
+  "CREATE TABLE if not exists receipt (id	INTEGER NOT NULL, items	TEXT, price	NUMERIC, quantity	TEXT DEFAULT 1, unit	INTEGER, sum	NUMERIC, date	REAL);"
 ).then(
   x => console.log("table created"),
   x => console.error("failed to create a table", x)
@@ -68,7 +67,7 @@ export default function ExampleFour() {
               sum: item.sum || 0,
               title: item.items,
               price: item.price,
-              quatity: item.quatity
+              quantity: item.quantity
             };
           })
         );
@@ -88,16 +87,13 @@ export default function ExampleFour() {
   };
   const deleteItem = i => {
     let item = items[i];
-    const newItems = [...items];
-    newItems[i] = {
-      ...item,
-      checked: !item.checked
-    };
+    let newItems = [...items];
+    console.log(items)
+    newItems.splice(i, 1);
     sql("DELETE FROM receipt  WHERE items = ?", [item.title]).then(
       x => console.log(item.title, "title del", x),
       x => console.error("failed to del a title", x)
     );
-    sql("select * from receipt").then()
     setItems(newItems);
   };
   /**
@@ -137,27 +133,24 @@ export default function ExampleFour() {
   const y = items.map(x => x.sum);
   const Sum = y.reduce((sum, current) => sum + current, 0);
 
-  const updateItemQuatity = i => {
+  const updateItemquantity = i => {
     let item = items[i];
     const newItems = [...items];
     newItems[i] = {
       ...item,
-      quatity: !item.quatity
+      quantity: !item.quantity
     };
     setItems(newItems);
   };
-
-  const onSubmit1 = quatity => {
-    sql("UPDATE receipt SET quatity = ? WHERE items = ?", [
-      quatity
-    ]).then(
+  const onSubmit1 = quantity => {
+    sql("UPDATE receipt SET quantity = ? WHERE items = ?", [quantity]).then(
     x => console.log("add", x.rows),
     x => console.error("failed to add", x)
     );
-    const newQuatity = [...items];
-    newQuatity.push({
+    const newquantity= [...items];
+    newquantity.push({
     });
-    setItems(newQuatity);
+    setItems(newquantity);
   };
   const onSubmit2 = price => {
     sql("UPDATE receipt SET price = ? WHERE items = ?", [
@@ -172,7 +165,7 @@ export default function ExampleFour() {
     });
     setItems(newPrice);
   };
-  const quatity = items.map(x => x.quatity);
+  const quantity = items.map(x => x.quantity);
   const price = items.map(x => x.price);
 
   return (
@@ -200,14 +193,14 @@ export default function ExampleFour() {
             </TableWrapper>
           </Table>
         }
-      </ScrollView>
+       </ScrollView>
       <View style={styles.total}>
         <Text style={styles.totaltxt}> итого: {Sum} </Text>
       </View>
       <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.btn}>
         <Text style={styles.btnText}>касса</Text>
-      </View>
+             </View>
       <SwipeablePanel
         isActive={editingItemNumber !== undefined}
         onClose={() => {
@@ -220,7 +213,7 @@ export default function ExampleFour() {
             {items[editingItemNumber].sum}
           </Text>
         ) : null}
-        <Text style={styles.text}>количество {quatity}</Text>
+        <Text style={styles.text}>количество {quantity}</Text>
         <UselessTextInput1 onSubmit1={onSubmit1} />
         <Text style={styles.text}>цена за единицу товара {price}</Text>
         <UselessTextInput2 onSubmit2={onSubmit2} />
