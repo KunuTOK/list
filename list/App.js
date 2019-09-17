@@ -11,7 +11,8 @@ import {
   View,
   TextInput,
   Button,
-  ScrollView
+  ScrollView,
+  Switch
 } from "react-native";
 import { Table, TableWrapper, Row, Rows } from "react-native-table-component";
 import { CheckBox } from "react-native-elements";
@@ -46,6 +47,16 @@ sql(
 
 export default function ExampleFour() {
   const [editingItemNumber, setEditingItemNumber] = React.useState();
+  const [hiddenDel, setHiddenDel] = React.useState(true);
+
+  let deleteButtonTitle = "";
+if(hiddenDel) {
+        deleteButtonTitle =  "удалить товар"
+    }
+    else {
+        deleteButtonTitle =  "хватит удалять"
+    }
+console.log(deleteButtonTitle)
 
   const [items, setItems] = React.useState([]);
 
@@ -199,7 +210,11 @@ export default function ExampleFour() {
       </View>
       <UselessTextInput onSubmit={onSubmit} />
       <View style={styles.btn}>
-        <Text style={styles.btnText}>касса</Text>
+      <Button
+        onPress={() => setHiddenDel(!hiddenDel)}
+        title={deleteButtonTitle}
+        color="red"
+      />
              </View>
       <SwipeablePanel
         isActive={editingItemNumber !== undefined}
