@@ -6070,9 +6070,9 @@ inherits@^2.0.1, inherits@~2.0.1:
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
 ini@^1.3.5, ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 inquirer@5.2.0:
   version "5.2.0"
@@ -9552,6 +9552,11 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
+
+react-native-calculator@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-calculator/-/react-native-calculator-0.5.2.tgz#e71f94f8601382b50a55ef21d5776c7f827b5ac3"
+  integrity sha512-KAsWEP9a56r8RyORudx+YGvMhTYdIK4eJ2Gcps1Yu6r1OszFziaKASDnvlFN8uTOFwAwGGsacj8cMJtV3D8hQA==
 
 react-native-elements@^1.1.0:
   version "1.1.0"
